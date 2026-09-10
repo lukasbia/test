@@ -1,0 +1,45 @@
+create.var {
+    .name(USERNAME_INPUT)
+    .type(string)
+    .value = ""
+    .mutable:
+}
+
+create.var {
+    .name(PASSWORD_INPUT)
+    .type(string)
+    .value = ""
+    .mutable:
+}
+
+create.var {
+    .name(IS_LOGGED_IN)
+    .type(bool)
+    .value = false
+    .mutable:
+}
+
+create.asm {
+    .target(wasm)
+    .export(render_login_ui)
+    .body {
+        ; Layout setup for login card
+        push.str "login-container"
+        call.ui.container
+        
+        push.str "Username"
+        call.ui.label
+        push.var USERNAME_INPUT
+        call.ui.input_text
+        
+        push.str "Password"
+        call.ui.label
+        push.var PASSWORD_INPUT
+        call.ui.input_password
+        
+        push.str "Submit"
+        call.ui.button
+        
+        ret
+    }
+}
